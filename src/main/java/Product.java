@@ -17,6 +17,9 @@ public class Product {
     @ManyToMany(mappedBy = "producten", targetEntity = OVChipkaart.class)
     private List<OVChipkaart> ovChipkaarten = new ArrayList<>();
 
+//    @ManyToMany(mappedBy = "")
+//    private List<OVChipkaart> ovChipkaarten = new ArrayList<>();
+
     public Product() {}
 
     public Product(int product_nummer, String naam, String beschrijving, double prijs) {

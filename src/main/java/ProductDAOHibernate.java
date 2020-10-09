@@ -1,21 +1,22 @@
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class AdresDAOHibernate implements AdresDAO {
+public class ProductDAOHibernate implements ProductDAO {
 
     private Session session;
 
-    public AdresDAOHibernate(Session sess) {
-        this.session = sess;
+    public ProductDAOHibernate(Session session) {
+        this.session = session;
     }
 
     @Override
-    public boolean save(Adres adres) {
+    public boolean save(Product product) {
         Transaction transaction = this.session.beginTransaction();
         try {
-            session.save(adres);
+            session.save(product);
             transaction.commit();
             return true;
         } catch(Exception e) {
@@ -25,10 +26,10 @@ public class AdresDAOHibernate implements AdresDAO {
     }
 
     @Override
-    public boolean update(Adres adres) {
+    public boolean update(Product product) {
         Transaction transaction = this.session.beginTransaction();
         try {
-            session.update(adres);
+            session.update(product);
             transaction.commit();
             return true;
         } catch(Exception e) {
@@ -38,10 +39,10 @@ public class AdresDAOHibernate implements AdresDAO {
     }
 
     @Override
-    public boolean delete(Adres adres) {
+    public boolean delete(Product product) {
         Transaction transaction = this.session.beginTransaction();
         try {
-            session.delete(adres);
+            session.delete(product);
             transaction.commit();
             return true;
         } catch(Exception e) {
@@ -51,21 +52,9 @@ public class AdresDAOHibernate implements AdresDAO {
     }
 
     @Override
-    public Adres findByReiziger(Reiziger reiziger) {
+    public List<Product> findall() {
         try {
-            Adres adres = session.createQuery("FROM Adres WHERE reiziger_id =" + reiziger.getReiziger_id(), Adres.class).getSingleResult();
-            return adres;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
-    public List<Adres> findAll() {
-        try {
-            List<Adres> adressen = session.createQuery("FROM Adres ", Adres.class).getResultList();
-            return adressen;
+            return session.createQuery("FROM Product", Product.class).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -3,19 +3,19 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class AdresDAOHibernate implements AdresDAO {
+public class OVChipkaartDAOHibernate implements OVChipkaartDAO {
 
     private Session session;
 
-    public AdresDAOHibernate(Session sess) {
+    public OVChipkaartDAOHibernate(Session sess) {
         this.session = sess;
     }
 
     @Override
-    public boolean save(Adres adres) {
+    public boolean save(OVChipkaart ovChipkaart) {
         Transaction transaction = this.session.beginTransaction();
         try {
-            session.save(adres);
+            session.save(ovChipkaart);
             transaction.commit();
             return true;
         } catch(Exception e) {
@@ -25,10 +25,10 @@ public class AdresDAOHibernate implements AdresDAO {
     }
 
     @Override
-    public boolean update(Adres adres) {
+    public boolean update(OVChipkaart ovChipkaart) {
         Transaction transaction = this.session.beginTransaction();
         try {
-            session.update(adres);
+            session.update(ovChipkaart);
             transaction.commit();
             return true;
         } catch(Exception e) {
@@ -38,10 +38,10 @@ public class AdresDAOHibernate implements AdresDAO {
     }
 
     @Override
-    public boolean delete(Adres adres) {
+    public boolean delete(OVChipkaart ovChipkaart) {
         Transaction transaction = this.session.beginTransaction();
         try {
-            session.delete(adres);
+            session.delete(ovChipkaart);
             transaction.commit();
             return true;
         } catch(Exception e) {
@@ -51,22 +51,20 @@ public class AdresDAOHibernate implements AdresDAO {
     }
 
     @Override
-    public Adres findByReiziger(Reiziger reiziger) {
+    public List<OVChipkaart> findall(){
         try {
-            Adres adres = session.createQuery("FROM Adres WHERE reiziger_id =" + reiziger.getReiziger_id(), Adres.class).getSingleResult();
-            return adres;
-        } catch (Exception e) {
+            return session.createQuery("FROM OVChipkaart ", OVChipkaart.class).getResultList();
+        } catch(Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
     @Override
-    public List<Adres> findAll() {
+    public List<OVChipkaart> findByReiziger(Reiziger reiziger) {
         try {
-            List<Adres> adressen = session.createQuery("FROM Adres ", Adres.class).getResultList();
-            return adressen;
-        } catch (Exception e) {
+            return session.createQuery("FROM OVChipkaart WHERE reiziger_id=" + reiziger.getReiziger_id(), OVChipkaart.class).getResultList();
+        } catch(Exception e) {
             e.printStackTrace();
             return null;
         }

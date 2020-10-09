@@ -20,8 +20,7 @@ public class Reiziger {
     @JoinColumn (name = "reiziger_id")
     private Adres adres;
 
-    @OneToMany
-    @JoinColumn (name = "reiziger_id")
+    @OneToMany (mappedBy = "reiziger")
     private List<OVChipkaart> ovChipkaarten = new ArrayList<>();
 
     public Reiziger() {}

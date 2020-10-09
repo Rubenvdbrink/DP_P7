@@ -5,7 +5,7 @@ public interface AdresDAO {
 
     boolean update(Adres adres);
 
-    boolean delete(Reiziger reiziger);
+    boolean delete(Adres adres);
 
     Adres findByReiziger(Reiziger reiziger);
 
